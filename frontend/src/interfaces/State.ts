@@ -14,11 +14,6 @@ export interface IWeb3EventSubscription {
   unsubscribe(): void;
 }
 
-export interface ITransferCooldown {
-  secondsLeft: number;
-  lastUpdatedTimestamp: number;
-}
-
 export interface IStakeState {
   ownBalance: string;
   stakedBalance: string;
@@ -79,8 +74,6 @@ export interface IState {
   weaponDurabilities: Record<number, number>;
   maxDurability: number;
   targetsByCharacterIdAndWeaponId: Record<number, Record<number, ITarget>>;
-
-  characterTransferCooldowns: Record<number, ITransferCooldown | undefined>;
 
   staking: Record<StakeType, IStakeState>;
   stakeOverviews: Record<StakeType, IStakeOverviewState>;

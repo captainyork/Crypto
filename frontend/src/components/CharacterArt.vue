@@ -115,7 +115,6 @@ export default {
     ...mapState(['maxStamina']),
     ...mapGetters([
       'getCharacterName',
-      'transferCooldownOfCharacterId',
       'getCharacterUnclaimedXp',
       'timeUntilCharacterHasMaxStamina'
     ]),
@@ -125,16 +124,6 @@ export default {
     RequiredXp,
 
     tooltipHtml(character) {
-      if (!character) return '';
-
-      const cooldown = this.transferCooldownOfCharacterId(this.character.id);
-      if (cooldown) {
-        if (cooldown === 86400)
-          // edge case for when it's exactly 1 day and the iso string cant display
-          return 'May not be traded for: 1 day';
-        else return `May not be traded for: ${new Date(cooldown * 1000).toISOString().substr(11, 8)}`;
-      }
-
       return '';
     },
 

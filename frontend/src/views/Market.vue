@@ -579,7 +579,7 @@ export default Vue.extend({
     ]) as Accessors<StoreMappedState>),
     ...(mapGetters([
       'contracts', 'ownCharacters'
-    ]) as Accessors<StoreMappedGetters>)
+    ]) as Accessors<StoreMappedGetters>),
 
     Weapons(): Contract<Weapons> {
       // we use x! here because we assert that they're set already in created()

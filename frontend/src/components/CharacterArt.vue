@@ -1,5 +1,5 @@
 <template>
-  <div class="character-art" v-tooltip="tooltipHtml(character)" ref="el">
+  <div class="character-art" ref="el">
     <div class="trait" v-if="!portrait">
       <span :class="trait.toLowerCase() + '-icon circle-element'"></span>
     </div>
@@ -122,10 +122,6 @@ export default {
 
   methods: {
     RequiredXp,
-
-    tooltipHtml(character) {
-      return '';
-    },
 
     staminaToolTipHtml(time) {
       return 'Regenerates 1 point every 5 minutes, stamina bar will be full at: ' + time;

@@ -6,7 +6,6 @@ import BN from 'bignumber.js';
 BN.config({ ROUNDING_MODE: BN.ROUND_DOWN });
 BN.config({ EXPONENTIAL_AT: 100 });
 
-import { INTERFACE_ID_TRANSFER_COOLDOWNABLE, setUpContracts } from './contracts';
 import {
   characterFromContract, targetFromContract, weaponFromContract
 } from './contract-models';
@@ -788,7 +787,7 @@ export function createStore(web3: Web3) {
         await dispatch('fetchOwnedCharacterRaidStatus');
       },
 
-      async fetchCharacter({ state, commit, dispatch }, characterId: string | number) {
+      async fetchCharacter({ state, commit }, characterId: string | number) {
         const { Characters } = state.contracts();
         if(!Characters) return;
 

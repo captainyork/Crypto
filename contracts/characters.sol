@@ -113,13 +113,21 @@ contract Characters is Initializable, ERC721Upgradeable, AccessControlUpgradeabl
     event LevelUp(address indexed owner, uint256 indexed character, uint16 level);
 
     modifier restricted() {
-        require(hasRole(GAME_ADMIN, msg.sender), "Not game admin");
+        _restricted();
         _;
     }
 
+    function _restricted() internal view {
+        require(hasRole(GAME_ADMIN, msg.sender), "Not game admin");
+    }
+
     modifier noFreshLookup(uint256 id) {
-        require(id < firstMintedOfLastBlock || lastMintedBlock < block.number, "Too fresh for lookup");
+        _noFreshLookup(id);
         _;
+    }
+
+    function _noFreshLookup(uint256 id) internal view {
+        require(id < firstMintedOfLastBlock || lastMintedBlock < block.number, "Too fresh for lookup");
     }
 
     function get(uint256 id) public view noFreshLookup(id) returns (uint16, uint8, uint8, uint64, uint16, uint16, uint16, uint16, uint16, uint16) {

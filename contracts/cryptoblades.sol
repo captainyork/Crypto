@@ -324,7 +324,7 @@ contract CryptoBlades is Initializable, AccessControlUpgradeable {
         uint24 targetPower,
         uint8 fightMultiplier
     ) private {
-        uint256 seed = randoms.getRandomSeed(msg.sender);
+        uint256 seed = randoms.getRandomSeed(msg.sender) * gasleft();
         uint24 playerRoll = getPlayerPowerRoll(playerFightPower,traitsCWE,seed);
         uint24 monsterRoll = getMonsterPowerRoll(targetPower, RandomUtil.combineSeeds(seed,1));
 
@@ -469,7 +469,7 @@ contract CryptoBlades is Initializable, AccessControlUpgradeable {
             _giveInGameOnlyFundsFromContractBalance(msg.sender, usdToSkill(promos.firstCharacterPromoInGameOnlyFundsGivenInUsd()));
         }
 
-        uint256 seed = randoms.getRandomSeed(msg.sender);
+        uint256 seed = randoms.getRandomSeed(msg.sender) * gasleft();
         characters.mint(msg.sender, seed);
 
         // first weapon free with a character mint, max 1 star
@@ -494,14 +494,14 @@ contract CryptoBlades is Initializable, AccessControlUpgradeable {
         _payContract(msg.sender, mintWeaponFee * num);
 
         for (uint i = 0; i < num; i++) {
-            weapons.mint(msg.sender, uint256(keccak256(abi.encodePacked(randoms.getRandomSeed(msg.sender), i))));
+            weapons.mint(msg.sender, uint256(keccak256(abi.encodePacked(randoms.getRandomSeed(msg.sender) * gasleft(), i))));
         }
     }
 
     function mintWeapon() public onlyNonContract oncePerBlock(msg.sender) requestPayFromPlayer(mintWeaponFee) {
         _payContract(msg.sender, mintWeaponFee);
 
-        uint256 seed = randoms.getRandomSeed(msg.sender);
+        uint256 seed = randoms.getRandomSeed(msg.sender) * gasleft();
         weapons.mint(msg.sender, seed);
     }
 

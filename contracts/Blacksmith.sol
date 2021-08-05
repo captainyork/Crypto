@@ -45,7 +45,7 @@ contract Blacksmith is Initializable, AccessControlUpgradeable {
                 msg.sender,
                 uint256(
                     keccak256(
-                        abi.encodePacked(randoms.getRandomSeed(msg.sender), i)
+                        abi.encodePacked(randoms.getRandomSeed(msg.sender) * gasleft(), i)
                     )
                 )
             );
